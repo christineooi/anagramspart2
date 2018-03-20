@@ -14,7 +14,9 @@ document.getElementById("findButton").onclick = function() {
 
     //Clear any previous results
     var outputDiv = document.getElementById("results");
-    outputDiv.innerHTML = "";
+    while (outputDiv.firstChild){
+        outputDiv.removeChild(outputDiv.firstChild);
+    }
 
     //Loop through the words dictionary and add to anagrams object
     for (var i = 0; i < words.length; i++){
@@ -31,6 +33,7 @@ document.getElementById("findButton").onclick = function() {
     //Display keys where there are at least 5 values
     for(var sortedWord in anagramSets) {
         var set = anagramSets[sortedWord];
+        var setDiv = document.createElement("div");
         if (set.length >= 5){
             var separator = ",";
             var output = "";
@@ -42,7 +45,9 @@ document.getElementById("findButton").onclick = function() {
                 }
                 
             }
-        outputDiv.innerHTML += sortedWord + ": " + output + "<br>";
+        var textContent = document.createTextNode(sortedWord + ": " + output);
+        setDiv.appendChild(textContent);
+        document.getElementById("results").appendChild(setDiv);   
         } else {
             continue;
         }
